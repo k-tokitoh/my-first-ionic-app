@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "8100:8100"
+    # command: ionic serve --host=0.0.0.0
+    command: ionic serve --external
