@@ -5,12 +5,12 @@
 </ion-header>
 
 <ion-content>
-  <form>
+  <form (submit)="addTask()" #f="ngForm">
     <ion-item>
       <ion-label>task</ion-label>
-      <ion-input></ion-input>
+      <ion-input [(ngModel)]="task" name="task" required minlength="3" maxlength="20"></ion-input>
     </ion-item>
-    <ion-button>add</ion-button>
+    <ion-button type="submit" [disabled]="!f.form.valid">add</ion-button>
   </form>
   <ion-list *ngFor="let task of tasks">
     <ion-item>{{task.name}}</ion-item>

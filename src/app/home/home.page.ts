@@ -14,10 +14,22 @@ export class HomePage implements OnInit {
     { name: "hoge" },
     { name: "fuga" },
   ]
+  task: string
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  ionViewWillEnter() {
+    if ('tasks' in localStorage) {
+      this.tasks = JSON.parse(localStorage.tasks)
+    }
+  }
+
+  addTask() {
+    this.tasks.push({ name: this.task })
+    localStorage.tasks = JSON.stringify(this.tasks)
+    this.task = ""
+  }
 }
