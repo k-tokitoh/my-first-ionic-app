@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { LoadingController } from '@ionic/angular'
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
