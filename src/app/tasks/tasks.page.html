@@ -5,5 +5,7 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-list *ngFor="let task of tasks">
+    <ion-item>{{task.name}}</ion-item>
+  </ion-list>
 </ion-content>
