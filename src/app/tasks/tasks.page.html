@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-list *ngFor="let task of tasks">
-    <ion-item>{{task.name}}</ion-item>
+  <ion-list *ngFor="let task of tasks; let i = index">
+    <ion-item (click)="operateTask(i)" [button]="true">{{task.name}}</ion-item>
   </ion-list>
 </ion-content>

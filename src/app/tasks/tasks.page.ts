@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActionSheetController } from '@ionic/angular'
 
 type Task = { name: string }
 
@@ -14,7 +15,7 @@ export class TasksPage implements OnInit {
     { name: "fuga" },
   ]
 
-  constructor() { }
+  constructor(public actionSheetController: ActionSheetController) { }
 
   ngOnInit() {
   }
@@ -23,5 +24,33 @@ export class TasksPage implements OnInit {
     if ('tasks' in localStorage) {
       this.tasks = JSON.parse(localStorage.tasks)
     }
+  }
+
+  async operateTask(id: number): Promise<void> {
+    const actionSheet = await this.actionSheetController.create({
+      buttons: [
+        {
+          text: "remove",
+          role: "destructive",
+          icon: "trash",
+          handler: () => {
+            this.tasks.splice(id, 1)
+            localStorage.tasks = JSON.stringify(this.tasks)
+          },
+        },
+        {
+          text: "update",
+          icon: "create",
+          handler: () => { },
+        },
+        {
+          text: "close",
+          role: "cancel",
+          icon: "close",
+          handler: () => { },
+        },
+      ]
+    })
+    actionSheet.present()
   }
 }
