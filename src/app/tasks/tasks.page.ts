@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActionSheetController } from '@ionic/angular'
+import { ActionSheetController, AlertController } from '@ionic/angular'
 
 type Task = { name: string }
 
@@ -15,7 +15,10 @@ export class TasksPage implements OnInit {
     { name: "fuga" },
   ]
 
-  constructor(public actionSheetController: ActionSheetController) { }
+  constructor(
+    public actionSheetController: ActionSheetController,
+    public alertController: AlertController,
+  ) { }
 
   ngOnInit() {
   }
@@ -41,7 +44,7 @@ export class TasksPage implements OnInit {
         {
           text: "update",
           icon: "create",
-          handler: () => { },
+          handler: () => { this._renameTask(id) },
         },
         {
           text: "close",
@@ -52,5 +55,30 @@ export class TasksPage implements OnInit {
       ]
     })
     actionSheet.present()
+  }
+
+  async _renameTask(id: number) {
+    const prompt = await this.alertController.create({
+      header: "update task",
+      inputs: [
+        {
+          name: "task",
+          placeholder: this.tasks[id].name
+        }
+      ],
+      buttons: [
+        {
+          text: "close"
+        },
+        {
+          text: "save",
+          handler: data => {
+            this.tasks[id] = { name: data.task }
+            localStorage.tasks = JSON.stringify(this.tasks)
+          }
+        }
+      ],
+    })
+    prompt.present()
   }
 }
