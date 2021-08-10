@@ -23,7 +23,7 @@ export class ArticlePage implements OnInit {
       date: null
     }
 
-  constructor(public http: HttpClient, public loadingController: LoadingController, public activatedRoute: ActivatedRoute) { }
+  constructor(public http: HttpClient, public activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.activatedRoute.paramMap
@@ -33,8 +33,6 @@ export class ArticlePage implements OnInit {
   }
 
   async ionViewDidEnter() {
-    const loading = await this.loadingController.create({ message: "Loading..." })
-    loading.present()
     this.http.get<{
       ID: number,
       title: string,
@@ -44,8 +42,6 @@ export class ArticlePage implements OnInit {
       .subscribe(data => {
         console.log(data)
         this.post = data
-        loading.dismiss()
       })
-
   }
 }

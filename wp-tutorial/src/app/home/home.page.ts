@@ -20,12 +20,17 @@ export class HomePage {
 
   async ionViewDidEnter() {
     const loading = await this.loadingController.create({ message: "Loading..." })
-    loading.present()
+    if (!this.posts.length) {
+      loading.present()
+    }
     this.http.get('https://public-api.wordpress.com/rest/v1.1/sites/ionicjp.wordpress.com/posts/')
       .subscribe(data => {
         this.posts = data['posts']
         loading.dismiss()
       })
+  }
 
+  trackByFn(_index: number, item):number {
+    return item.ID
   }
 }
